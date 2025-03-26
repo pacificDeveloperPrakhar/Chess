@@ -1,0 +1,22 @@
+.board{
+    background-color: rgba(255, 228, 196, 0.747);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+}
+.square{
+    background-color: white;
+}
+.square_black{
+    background-color: rgb(57, 64, 73);
+}
+.square_white{
+    background-color: white;
+}
+.square_piece{
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
