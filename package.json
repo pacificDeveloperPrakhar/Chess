@@ -1,0 +1,20 @@
+{
+  "name": "chess_engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pacificDeveloperPrakhar/Chess.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pacificDeveloperPrakhar/Chess/issues"
+  },
+  "homepage": "https://github.com/pacificDeveloperPrakhar/Chess#readme"
+}

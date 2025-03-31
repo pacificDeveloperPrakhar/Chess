@@ -1,0 +1,18 @@
+{
+  "name": "engine_lib-freebsd-x64",
+  "version": "0.0.0",
+  "os": [
+    "freebsd"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "engine_lib.freebsd-x64.node",
+  "files": [
+    "engine_lib.freebsd-x64.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}

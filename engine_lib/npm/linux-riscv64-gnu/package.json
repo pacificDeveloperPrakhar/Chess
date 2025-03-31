@@ -1,0 +1,21 @@
+{
+  "name": "engine_lib-linux-riscv64-gnu",
+  "version": "0.0.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "riscv64"
+  ],
+  "main": "engine_lib.linux-riscv64-gnu.node",
+  "files": [
+    "engine_lib.linux-riscv64-gnu.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "libc": [
+    "glibc"
+  ]
+}

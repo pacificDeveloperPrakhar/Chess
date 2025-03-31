@@ -10,7 +10,7 @@ export default function Board(){
     // this is the epd notation which do be used to render the state of the chess game
     const [epd,setEpd]=useState("rnbqkbnr/pppppppp/00000000/000p0000/00P0P000/00000000/00P00000/rNQqKBNR".split("/").reverse().map((row)=>row.split("")));
     const [epd_display,setEpdDisplay]=useState("00000000/00000-0-/000000../000-..../000000../00000.0./0000.00./000-0000".split("/").reverse().map((row)=>row.split("")));
-    const controls=useDragControls();
+
     return<> 
         <div className="board  absolute "> 
             {state.map((squares,row)=>{
@@ -26,7 +26,7 @@ export default function Board(){
                     <motion.div className={clsx("square_piece",{
             'kill_move': epd_display[row][col] === '-',
             'movable_move': epd_display[row][col] === '.'
-        })} drag  dragControls={controls}>
+        })} >
                         
                           
                           {(epd[row][col] !== "0" && epd[row][col] !== "-" && epd[row][col] !== ".") ? (
