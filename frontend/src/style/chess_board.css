@@ -10,11 +10,11 @@
 }
 
 .square_black {
-    background-color: rgb(57, 64, 73);
+    background-color: rgb(104, 164, 241);
 }
 
 .square_white {
-    background-color: white;
+    background-color: rgb(240, 234, 234);
 }
 
 .square_piece {
@@ -27,10 +27,13 @@
 
 .kill_move {
     background-color: rgba(253, 3, 24, 0.4);
+    border-radius: 100%;
     backdrop-filter: blur(8px);
 }
 
 .movable_move {
     background-color: rgba(153, 205, 50, 0.6);
     backdrop-filter: blur(8px);
+    border-radius: 100%;
+    transform: scale(0.6);
 }
