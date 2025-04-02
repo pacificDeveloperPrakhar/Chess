@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/pacificDeveloperPrakhar/Chess/issues"
   },
-  "homepage": "https://github.com/pacificDeveloperPrakhar/Chess#readme"
+  "homepage": "https://github.com/pacificDeveloperPrakhar/Chess#readme",
+  "packageManager": "yarn@4.8.1"
 }

@@ -8,6 +8,6 @@ use validator::epd_to_num;
 extern crate napi_derive;
 
 #[napi]
-pub fn sum(a: i32, b: i32) -> i32 {
-  a + b
+pub fn nothing_fn()->i32{
+  return 23_i32;
 }

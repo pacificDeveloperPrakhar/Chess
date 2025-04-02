@@ -109,7 +109,7 @@ row_iter += 1;
 }
 
 println!("{},{},queen-diagonal", col_start, row_start);
-println!("executing {}", epd_mod[row_iter][col_iter]);
+println!("start values {}", epd_mod[row_iter][col_iter]);
 
 let queen_color = epd_mod[queen_row][queen_col].is_lowercase();
 let square_color = epd_mod[row_start][col_start].is_lowercase();
@@ -150,18 +150,17 @@ row_start = row_iter;
 col_iter = 7 - cmp::max(-1 * x_intercept, 0) as usize;
 col_start = col_iter;
 
-println!("{},{} queen", queen_col, queen_row);
-println!("{},{} starting", col_iter, row_iter);
 
 while col_iter > queen_col && row_iter < queen_row {
-if epd_mod[row_iter][col_iter] == '0' {
-    epd_res[row_iter][col_iter] = '.';
-} else {
+if epd_mod[row_iter][col_iter] != '0'&&(row_iter!=queen_row&&col_iter!=queen_col) {
+
     row_start = row_iter;
     col_start = col_iter;
+    
 }
 col_iter -= 1;
 row_iter += 1;
+
 }
 
 let queen_color = epd_mod[queen_row][queen_col].is_lowercase();
@@ -172,16 +171,15 @@ epd_res[row_start][col_start] = '-';
 }
 
 if col_start > queen_col && col_start > 0 && row_start < queen_row && row_start < 7 {
-col_start -= 1;
-row_start += 1;
+  
+    col_start -= 1;
+    row_start += 1;
 }
-
 while col_start > 0 && row_start < 8 {
-println!("{},{} iterating", col_start, row_start);
 if epd_mod[row_start][col_start] == '0' {
     epd_res[row_start][col_start] = '.';
 } else {
-    if row_start != queen_row && col_start != queen_col {
+    if row_start != queen_row &&col_start != queen_col {
         let queen_color = epd_mod[queen_row][queen_col].is_lowercase();
         let square_color = epd_mod[row_start][col_start].is_lowercase();
         if queen_color != square_color {
@@ -221,7 +219,7 @@ col_iter = cmp::max(queen_col as isize - queen_row as isize, 0) as usize;
 col_start = col_iter;
 
 while col_iter < queen_col && row_iter < queen_row {
-if epd_mod[row_iter][col_iter] != '0' {
+if epd_mod[row_iter][col_iter] != '0'&&(row_iter!=queen_row&&col_iter!=queen_col) {
     row_start = row_iter;
     col_start = col_iter;
 }
