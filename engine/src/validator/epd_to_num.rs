@@ -1,13 +1,3 @@
-use std::any::type_name;
-
-fn print_type_of<T>(_: &T) {
-    println!("{}", type_name::<T>());
-}
-
-fn main() {
-    let value = 42; // i32 by default
-    print_type_of(&value); // Outputs: i32
-}
 
 pub fn epd_to_num(epd: String) -> u64 {
     let epd: Vec<char> = epd.chars().map(|c| c ).collect(); // Convert chars to u8

@@ -9,7 +9,8 @@ const server = http.createServer(app);
 const host = process.env.host;
 const port = process.env.port;
 const {Server:socket}=require("socket.io")
-const {colorBright,colorFgCyan,colorRed,colorReset,colorPurple, colorFgGreen}=require("./color_codes.js")
+const {colorBright,colorFgCyan,colorRed,colorReset,colorPurple, colorFgGreen}=require("./color_codes.js");
+const { format } = require("path");
 
 console.log(`${colorFgCyan}mode:${colorReset} ${colorBright}${colorPurple}${process.env.mode}${colorReset}`);
 // if there is an unhadled promise then we have an even registered for it here
@@ -63,10 +64,43 @@ io.on("connection",async(socket)=>{
     console.log("disconnected");
   })
   socket.on("initialize",async(id)=>{
+    const current_connections=(await io.in(id).fetchSockets()).length;
+    if (!current_connections){
+      memory_base.push({
+        [id]:[]
+      })
+    }
+    
     socket.join(id)
     console.log(`joined the room ${id}`);
-    const current_connections=(await io.in(id).fetchSockets()).length;
     console.log(current_connections)
     io.to(id).emit("joined",{id,current_connections});
+    
+  })
+  socket.on("piece_selected",(data)=>{
+    console.log(data);
+  })
+  socket.on("move_selected",(data)=>{
+    console.log("move was selected");
   })
 })
+
+const memory_base=[]
+async function state_select(id,memory_base,io,socket,data){
+  if (!(memory_base[id].length||memory_base[id][0].color=='a')&&data.color!='a'){
+      return;
+  }
+  else if (memory_base[id][0].color=='A'&&data.color!='A'){
+     return;
+  }
+  if(data.type!=='moveType'){
+    memory_base[id][0]=data
+    //here i will first get the all possible moves then send it to the socket which invoked it
+    return
+  }
+
+    // this will executed when the type is move i will check if it is valid if valid then take the epd from
+    // the staak and update it with the position of the move and emit it to all socket 
+  //  also at the end empty the stack
+
+}
