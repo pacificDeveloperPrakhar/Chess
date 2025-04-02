@@ -28,7 +28,7 @@ const [epd, setEpd] = useState(() => {
     ? boardSetup.split("/").reverse().map(row => row.split("")) 
     : boardSetup.split("/").map(row => row.split(""));
 });
-    const [epd_display,setEpdDisplay]=useState("00000000/00000000/00000000/00000000/00000000/00000000/00000000/00000000".split("/").reverse().map((row)=>row.split("")));
+    const [epd_display,setEpdDisplay]=useState("00000000/000-0000/000.0000/.00.0000/0.0.0.00/00...000/00000000/00000000".split("/").reverse().map((row)=>row.split("")));
     useEffect(()=>{
       socket.emit("initialize",id);
       socket.on("joined",async (data)=>{

@@ -39,3 +39,22 @@ pub fn is_valid_move(epd: String, move_from: String, move_to: String) -> bool {
         return false;
     }
 }
+pub fn all_possible_moves(epd:String,move_str:String)->String{
+    let move_chars: Vec<char> = move_str.chars().collect();
+    let piece_row: usize = (move_chars[0] as u8 - b'a') as usize;
+    let piece_col: usize = (move_chars[1] as u8 - b'1') as usize;
+    let epd_rows: Vec<&str> = epd.split('/').collect();
+    let mut epd_mod: Vec<Vec<char>> = epd_rows.iter().map(|&row| row.chars().collect()).collect();
+    let chess_piece=epd_mod[piece_row][piece_col];
+
+    let possibilities= match epd_mod[piece_row][piece_col] {
+        'q' | 'Q' => moves_evaluator::all_valid_queen_moves(epd, move_str),
+        'k' | 'K' => moves_evaluator::all_valid_king_moves(epd, move_str),
+        'n' | 'N' => moves_evaluator::all_valid_knight_moves(epd, move_str),
+        'p' | 'P' => moves_evaluator::all_valid_pawn_moves(epd, move_str),
+        'r' | 'R' => moves_evaluator::all_valid_rook_moves(epd, move_str),
+        'b' | 'B' => moves_evaluator::all_valid_bishop_moves(epd, move_str),
+        _ => String::from("00000000/00000000/00000000/00000000/00000000/00000000/00000000/00000000"),
+    };
+    return possibilities
+}
