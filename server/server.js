@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+// this is our coded engine module natively coded in the rust and then built a binary file for the
+// current platform
+const {allPossibleMoves,isValidMove}=require("engine_lib");
 dotenv.config({ path: "./config.env" });
 const cors = require("cors");
+const shiftChar=require("./utils/shiftChar.js")
 const http = require("http");
 const geturl = require("./utils/get_connection_url.js");
 const app = require("./app.js");
@@ -59,6 +63,7 @@ io.engine.use(cors({
   credentials: true // Allow cookies to be sent with the request (if needed)
 }))
 io.on("connection",async(socket)=>{
+  
   console.log("connected to the server");
   socket.on("disconnect",()=>{
     console.log("disconnected");
@@ -66,36 +71,51 @@ io.on("connection",async(socket)=>{
   socket.on("initialize",async(id)=>{
     const current_connections=(await io.in(id).fetchSockets()).length;
     if (!current_connections){
-      memory_base.push({
-        [id]:[]
-      })
+      memory_base[id]=null
+        
     }
     
-    socket.join(id)
+    socket.join(id);
+    console.log(socket.rooms);
     console.log(`joined the room ${id}`);
     console.log(current_connections)
     io.to(id).emit("joined",{id,current_connections});
-    
+
   })
-  socket.on("piece_selected",(data)=>{
-    console.log(data);
+  socket.on("piece_selected",async (data)=>{
+    console.log(socket.rooms);
+    await state_select(memory_base,io,socket,data)
   })
   socket.on("move_selected",(data)=>{
     console.log("move was selected");
   })
 })
 
-const memory_base=[]
-async function state_select(id,memory_base,io,socket,data){
-  if (!(memory_base[id].length||memory_base[id][0].color=='a')&&data.color!='a'){
-      return;
-  }
-  else if (memory_base[id][0].color=='A'&&data.color!='A'){
-     return;
-  }
+const memory_base={}
+async function state_select(memory_base,io,socket,data){
+  const id=Array.from(socket.rooms)[1];
+
+  // if(!memory_base.id&&data.color!='a')
+  // {return}
+  // if(memory_base.id&&data.color!=memory_base.id.color){
+  //   return
+  // }
   if(data.type!=='moveType'){
-    memory_base[id][0]=data
-    //here i will first get the all possible moves then send it to the socket which invoked it
+    memory_base.id=data
+    if(data.color=='a')
+      { 
+        data.epd=data.epd.split('/').reverse().join('/');
+      }
+    else if(data.color=='A'){
+      data.move[0]=7-data.move[0];
+    }
+      data.move[0]=7-data.move[0]
+      console.log(data.epd);
+      data.move=shiftChar(data.move[0],'a')+shiftChar(data.move[1],'1')
+      console.log(data.move);
+      let all_moves=allPossibleMoves(data.epd,data.move);
+    console.log(all_moves);
+    io.to(socket.id).emit("moves_state_change",all_moves);
     return
   }
 
@@ -104,3 +124,4 @@ async function state_select(id,memory_base,io,socket,data){
   //  also at the end empty the stack
 
 }
+console.log(shiftChar(1,'a'))

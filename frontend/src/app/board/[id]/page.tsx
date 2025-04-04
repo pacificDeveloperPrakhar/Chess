@@ -8,6 +8,9 @@ import {motion,useDragControls} from "motion/react";
 import { io } from "socket.io-client";
 import { h1 } from "motion/react-client";
 import shiftChar from "@/utils/shiftChar"
+const socket=io("http://127.0.0.1:1234", {
+  path: "/interface_chess/"
+})
 export default function Board(){
     // the game initial overall board piece do be rendered accordingly
     const [state,setState]=useState(Array.from({length:8},()=>Array(8).fill(0)));
@@ -17,19 +20,18 @@ export default function Board(){
     const color=params.get("color");
     const { id } = useParams();
     console.log("this is the room",color);
-    const socket = io("http://127.0.0.1:1234", {
-      path: "/interface_chess/"
-    });
+
     // this is the epd notation which do be used to render the state of the chess game
-    const boardSetup = "rnbqkbnr/pppppppp/00000000/00000000/00000000/00000000/PPPPPPPP/RNBQKBNR";
+    const boardSetup = "rnbqkbnr/pppppppp/Q0000Q00/0000Q000/00000000/0000Q000/PPPPPPPP/RNBQKBNR";
 
 const [epd, setEpd] = useState(() => {
   return !isUpperCase.test(color?color:'a')
     ? boardSetup.split("/").reverse().map(row => row.split("")) 
     : boardSetup.split("/").map(row => row.split(""));
 });
-    const [epd_display,setEpdDisplay]=useState("00000000/000-0000/000.0000/.00.0000/0.0.0.00/00...000/00000000/00000000".split("/").reverse().map((row)=>row.split("")));
+    const [epd_display,setEpdDisplay]=useState("00000000/00000000/000...00/....0.../000...00/00.0.0.0/0-00-00-/00000000".split("/").reverse().map((row)=>row.split("")));
     useEffect(()=>{
+      console.log("executing the effect");
       socket.emit("initialize",id);
       socket.on("joined",async (data)=>{
         const {id,current_connections}=data;
@@ -38,7 +40,13 @@ const [epd, setEpd] = useState(() => {
           id,current_connections
         });
       })
-      
+      socket.on("moves_state_change",(data)=>{
+        console.log(data);
+        if(color=='a')
+        setEpdDisplay(data.split("/").reverse().map((row)=>row.split("")))
+        else
+        setEpdDisplay(data.split("/").map((row)=>row.split("")))
+      })
     },[])
     return<> 
         <div className="board  absolute "> 
@@ -77,7 +85,7 @@ const [epd, setEpd] = useState(() => {
   {...(isBlack === isUpperCase.test(color ? color : 'a') && {
     onClick: () => {
       // Convert row and col to chess notation (e.g., a6)
-      const move = shiftChar(row, 'a') + shiftChar(col, '1');
+      const move = [row,col]
       
       socket.emit("piece_selected", {
         move,

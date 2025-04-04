@@ -8,6 +8,8 @@ use validator::epd_to_num;
 extern crate napi_derive;
 
 #[napi]
-pub fn nothing_fn()->i32{
-  return 23_i32;
+pub engine_process(epd:String,move_str:String,color_str:String){
+  if color_str=='a'{
+    move_str
+  }
 }

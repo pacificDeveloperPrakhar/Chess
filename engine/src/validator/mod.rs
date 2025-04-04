@@ -46,7 +46,8 @@ pub fn all_possible_moves(epd:String,move_str:String)->String{
     let epd_rows: Vec<&str> = epd.split('/').collect();
     let mut epd_mod: Vec<Vec<char>> = epd_rows.iter().map(|&row| row.chars().collect()).collect();
     let chess_piece=epd_mod[piece_row][piece_col];
-
+    println!("{}",epd);
+    println!("{} at {}",chess_piece,move_str);
     let possibilities= match epd_mod[piece_row][piece_col] {
         'q' | 'Q' => moves_evaluator::all_valid_queen_moves(epd, move_str),
         'k' | 'K' => moves_evaluator::all_valid_king_moves(epd, move_str),
