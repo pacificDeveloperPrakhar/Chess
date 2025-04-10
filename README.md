@@ -13,3 +13,4 @@
 
 this chess engine will be based on the monte carlo search tree and will built on transformer
 
+![Chess Board Mapping](assets/chess_assets_1.png)
