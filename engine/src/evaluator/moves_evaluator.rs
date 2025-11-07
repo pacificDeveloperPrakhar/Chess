@@ -608,3 +608,6 @@ return epd_res
 .collect::<Vec<String>>()
 .join("/")
 }
+
+
+pub fn process_moves(epd:String,epd_move_str:String)->(){}
