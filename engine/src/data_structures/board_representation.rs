@@ -17,7 +17,7 @@ pub const BP:u8=12;
 pub const ES:u8=0;
 
 // now encode the board prepresentation data structure
-pub static mut board: [[u8;8];8] = [
+pub static mut BOARD: [[u8;8];8] = [
     [BR, BN, BB, BQ, BK, BB, BN, BR],
     [BP, BP, BP, BP, BP, BP, BP, BP],
     [ES, ES, ES, ES, ES, ES, ES, ES],

@@ -5,4 +5,3 @@
 
 export declare function isValidMove(epd: string, moveFrom: string, moveTo: string): boolean
 export declare function allPossibleMoves(epd: string, moveStr: string): string
-export declare function nothingFn(): number

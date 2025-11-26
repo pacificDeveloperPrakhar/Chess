@@ -1,4 +1,5 @@
 # Rust related
+./engine/target/
 /target/
 **/*.rs.bk
 Cargo.lock
